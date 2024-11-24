@@ -11,7 +11,7 @@ public class SearchRecipeAPITests extends Base {
     SearchRecipeAPITests() throws IOException {
     }
 
-    //@Test
+    @Test
     public void testSearchRecipesByIngredient() {
         res = given()
                 .queryParam("ingredients", "tomato,cheese")
@@ -24,9 +24,9 @@ public class SearchRecipeAPITests extends Base {
                 .body("size()", greaterThan(0))
                 .body("id", hasItem(645696))
                 .body("missedIngredients.aisle.flatten()", hasItems("Produce", "Spices and Seasonings"));
-       print_response(" ");
+       print_response(name());
     }
-    //@Test
+    @Test
     public void testSearchRecipesByCuisine() {
         res = given()
                 .queryParam("cuisine", "Italian")
@@ -37,9 +37,9 @@ public class SearchRecipeAPITests extends Base {
         res.then()
                 .statusCode(200)
                 .body("results.title", hasItem("Salmon Quinoa Risotto"));
-        print_response(" ");
+        print_response(name());
     }
-    //@Test
+    @Test
     public void testSearchRecipesByDietaryRestriction() {
         res  = given()
                 .queryParam("diet", "vegan")
@@ -51,7 +51,7 @@ public class SearchRecipeAPITests extends Base {
         res.then()
                 .statusCode(200)
                 .body("results.title", hasItems("Garlicky Kale", "Red Kidney Bean Jambalaya"));
-        print_response(" ");
+        print_response(name());
     }
     @Test
     public void testGetRecipeInformationById() {
@@ -66,7 +66,6 @@ public class SearchRecipeAPITests extends Base {
                 .body("title", not(empty()))
                 .body("extendedIngredients.size()", greaterThan(0))
                 .body("instructions", not(empty()));
-        String m_name = name();
-        print_response(m_name);
+        print_response(name());
     }
 }
